@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="prediction-container">
+  <h2>Effectuer une Prédiction</h2>
+  <p>Importez vos fichiers de transactions pour détecter les fraudes potentielles.</p>
+
+  <div class="upload-options">
+    <div class="upload-option">
+      <h3>Option 1: Fichiers Séparés</h3>
+      <form method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="transaction-file">Fichier Transaction:</label>
+          <input type="file" name="transaction-file" accept=".csv" required>
+        </div>
+        <div class="form-group">
+          <label for="identity-file">Fichier Identité:</label>
+          <input type="file" name="identity-file" accept=".csv" required>
+        </div>
+        <button type="submit">Analyser</button>
+      </form>
+    </div>
+
+    <div class="or-separator">
+      <span>OU</span>
+    </div>
+
+    <div class="upload-option">
+      <h3>Option 2: Fichier Fusionné</h3>
+      <form method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="merged-file">Fichier Fusionné:</label>
+          <input type="file" name="merged-file" accept=".csv" required>
+        </div>
+        <button type="submit">Analyser</button>
+      </form>
+    </div>
+  </div>
+
+  {% if predictions %}
+  <div class="results">
+    <h3>Résultats de l'Analyse</h3>
+    <div class="result-summary">
+      <p>Total des transactions analysées: <strong>{{ predictions|length }}</strong></p>
+      <p>Transactions suspectes: <strong>{{ predictions|selectattr('1', '>=', 0.5)|list|length }}</strong></p>
+    </div>
+    
+    <div class="result-table-container">
+      <table class="result-table">
+        <thead>
+          <tr>
+            <th>ID Transaction</th>
+            <th>Score de Fraude</th>
+            <th>Statut</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in predictions %}
+          <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ "%.4f"|format(row[1]) }}</td>
+            <td class="status-{{ 'high' if row[1] >= 0.5 else 'low' }}">
+              {{ 'Risque Élevé' if row[1] >= 0.5 else 'Risque Faible' }}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

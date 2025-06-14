@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero">
+  <h1>Détection de Fraude en Temps Réel</h1>
+  <p>Un système avancé pour détecter les transactions frauduleuses</p>
+  <div class="cta-buttons">
+    <a href="{{ url_for('predict_page') }}" class="cta-button">Faire une prédiction</a>
+    <a href="{{ url_for('dashboard') }}" class="cta-button">Voir le dashboard</a>
+  </div>
+</div>
+
+<div class="features">
+  <div class="feature">
+    <h3>Analyse Précise</h3>
+    <p>Notre modèle détecte les fraudes avec une grande précision.</p>
+  </div>
+  <div class="feature">
+    <h3>Visualisation Claire</h3>
+    <p>Dashboard intuitif pour comprendre les résultats.</p>
+  </div>
+  <div class="feature">
+    <h3>Facile à Utiliser</h3>
+    <p>Interface simple pour une prise en main rapide.</p>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="dashboard-container">
+  <h1>Dashboard Analytique</h1>
+  
+  <div class="stats-cards">
+    <div class="stat-card">
+      <h3>Transactions Total</h3>
+      <p>{{ total_transactions }}</p>
+    </div>
+    <div class="stat-card warning">
+      <h3>Fraudes Détectées</h3>
+      <p>{{ fraud_count }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Taux de Fraude</h3>
+      <p>{{ "%.2f"|format((fraud_count / total_transactions * 100) if total_transactions > 0 else 0) }}%</p>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <h3>Répartition des Scores de Fraude</h3>
+    <canvas id="fraudChart"></canvas>
+  </div>
+
+  <div class="recent-transactions">
+    <h3>Transactions Récentes</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Score</th>
+          <th>Statut</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for score in scores[-10:] %}
+        <tr>
+          <td>TRX{{ loop.index }}</td>
+          <td>{{ "%.4f"|format(score) }}</td>
+          <td class="{{ 'high-risk' if score >= 0.5 else 'low-risk' }}">
+            {{ 'Fraude' if score >= 0.5 else 'Normale' }}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  const rawScores = {{ scores | safe }};
+  const buckets = new Array(10).fill(0);
+  
+  rawScores.forEach(score => {
+    const index = Math.min(Math.floor(score * 10), 9);
+    buckets[index]++;
+  });
+
+  const ctx = document.getElementById('fraudChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['0-0.1','0.1-0.2','0.2-0.3','0.3-0.4','0.4-0.5','0.5-0.6','0.6-0.7','0.7-0.8','0.8-0.9','0.9-1.0'],
+      datasets: [{
+        label: 'Nombre de transactions',
+        data: buckets,
+        backgroundColor: [
+          '#4CAF50', '#4CAF50', '#4CAF50', '#4CAF50', '#4CAF50',
+          '#F44336', '#F44336', '#F44336', '#F44336', '#F44336'
+        ]
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: context => ` ${context.raw} transactions`
+          }
+        }
+      },
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+</script>
+{% endblock %}

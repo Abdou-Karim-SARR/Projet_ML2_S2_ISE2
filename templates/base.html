@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="{{ url_for('static', filename='css/images/logo.png') }}" type="image/png" />
+  <title>{{ title }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body class="{{ page_class }}">
+  <header>
+    <div class="logo">
+      <img src="{{ url_for('static', filename='css/images/logo.png') }}" alt="Logo" />
+      <h1>FraudGuard</h1>
+    </div>
+    <nav id="top-menu">
+      <ul>
+        <li><a href="{{ url_for('index') }}" class="{{ 'active' if page == 'index' else '' }}">Accueil</a></li>
+        <li><a href="{{ url_for('predict_page') }}" class="{{ 'active' if page == 'predict' else '' }}">Prédiction</a></li>
+        <li><a href="{{ url_for('dashboard') }}" class="{{ 'active' if page == 'dashboard' else '' }}">Dashboard</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    {% if page != 'index' %}
+    <div class="back-button">
+      <a href="{{ url_for('index') }}">← Retour à l'accueil</a>
+    </div>
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer>
+    <p>&copy; 2025 FraudGuard - DIACK & NDAO & NGOM & SARR</p>
+  </footer>
+
+  <script>
+    // Masquer les formulaires par défaut
+    document.addEventListener('DOMContentLoaded', function() {
+      const forms = document.querySelectorAll('form[id^="form-"]');
+      forms.forEach(form => form.style.display = 'none');
+      
+      // Gestion des clics pour les span
+      if(document.getElementById('click-non-merged')) {
+        document.getElementById('click-non-merged').addEventListener('click', function() {
+          document.getElementById('form-non-merged').style.display = 'block';
+          if(document.getElementById('form-merged')) {
+            document.getElementById('form-merged').style.display = 'none';
+          }
+        });
+      }
+      
+      if(document.getElementById('click-merged')) {
+        document.getElementById('click-merged').addEventListener('click', function() {
+          document.getElementById('form-merged').style.display = 'block';
+          document.getElementById('form-non-merged').style.display = 'none';
+        });
+      }
+    });
+  </script>
+</body>
+</html>
