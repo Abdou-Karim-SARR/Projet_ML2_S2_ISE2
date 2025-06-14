@@ -1,6 +1,5 @@
 
 
-![Logo](C:/Users/pc/Desktop/Projet ML/static/css/images/logo.png)
 
 ## Description du Projet
 
@@ -8,7 +7,7 @@ FraudGuard est un système intelligent conçu pour détecter les fraudes dans le
 
 ##  Technologies Utilisées
 
-- **Langage** : Python 3.8+
+- **Langage** : Python 3
 - **Machine Learning** : LightGBM, Scikit-learn
 - **Backend** : Flask
 - **Frontend** : HTML5, CSS3, Chart.js
