@@ -6,7 +6,7 @@
 
 FraudGuard est un système intelligent conçu pour détecter les fraudes dans les transactions en ligne. Développé pour **Vesta Corporation**, ce projet combine des techniques avancées de *machine learning* et d’analyse comportementale pour identifier les opérations suspectes avec une grande précision.
 
-## 🛠️ Technologies Utilisées
+##  Technologies Utilisées
 
 - **Langage** : Python 3.8+
 - **Machine Learning** : LightGBM, Scikit-learn
@@ -37,7 +37,7 @@ fraud-detection/
 └── notebooks/              # Notebooks d’analyse exploratoire
 ```
 
-## 🚀 Installation et Exécution
+##  Installation et Exécution
 
 ### 1. Cloner le dépôt
 
@@ -72,7 +72,7 @@ python app.py
 
 ## Fonctionnalités
 
-### ✅ Prédiction en temps réel
+###  Prédiction en temps réel
 
 - Upload de fichiers CSV
 - Affichage instantané des risques de fraude
@@ -110,7 +110,7 @@ python app.py
 - [Donnees sur Kaggle](https://www.kaggle.com/c/ieee-fraud-detection)
 - [Documentation LightGBM](https://lightgbm.readthedocs.io/)
 - Article : *"How AI is Transforming Fraud Detection in Financial Services"*
-
-## Licence
-
-Ce projet est sous licence **MIT** – voir le fichier LICENSE pour plus de détails.
+- https://youtu.be/RTC3B9eCzC4?si=h3k2CDqSmTZzglNp
+- https://youtube.com/watch?v=9C7Y2XFuDvQ&feature=shared
+- https://github.com/jaguar-paw33/IEEE-CIS-Fraud-Detection/tree/master
+- https://youtube.com/shorts/QW-6Jbxeiaw?si=cnkpBlnASbuS6ZoH
